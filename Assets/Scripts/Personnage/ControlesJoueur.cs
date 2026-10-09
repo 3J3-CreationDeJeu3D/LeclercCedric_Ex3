@@ -96,6 +96,21 @@ public class ControlesJoueur : MonoBehaviour
         // Quand le personnage est libre, il peut se déplacer et sauter. 
         // Si le personnage est dans un autre état, il ne peut pas se déplacer ni sauter, 
         // mais peut effectuer d'autres actions comme attaquer ou interagir.
+        if(etatPerso == EtatPerso.LIBRE || etatPerso == EtatPerso.SAUT)
+        {
+            deplacementGeneral = deplacementJoueur.CalculerDeplacement(deplacementInput);
+
+            if(sautInput == true)
+            {
+                deplacementJoueur.Sauter();
+            }
+
+            if (dashInput)
+            {
+                deplacementJoueur.Dash();
+            }
+
+        }
 
 
         //Placer ici les autres actions autorisées en état LIBRE, comme l'attaque et l'interaction.
@@ -109,18 +124,22 @@ public class ControlesJoueur : MonoBehaviour
         // ===============================
 
         // 3. Calculer la gravité et le déplacement spécial. 
+        deplacementGravite = deplacementJoueur.CalculerGravite();
         // Calculer la force spéciale (poussée, dash, autres effets) et l'ajouter au déplacement total.
-
+        deplacementSpecial = deplacementJoueur.CalculerForceSpeciale();
 
         // 4. Calculer le déplacement total
         // Tenir compte du nouvel état et calculer la gravité.
+        deplacementTotal = deplacementGeneral + deplacementGravite + deplacementSpecial;
 
         // 4. Appliquer le déplacement final et la rotation au CharacterController
         // Une seule fois par frame, en combinant les déplacements.
+        deplacementJoueur.MettreAJourDeplacement(deplacementTotal);
+        deplacementJoueur.MettreAJourRotation(deplacementInput.x);
 
 
         // 5. Gestion de l'animation
-
+        animator.SetFloat("vitesse", deplacementGeneral.magnitude);
         // 6. Gestion des autres états du joueur, comme la fin du saut après le calcul des déplacements
 
     }

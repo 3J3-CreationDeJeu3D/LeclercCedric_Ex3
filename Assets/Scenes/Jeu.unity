@@ -882,7 +882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DeplacementJoueur
   vitesseDeplacement: 5
   vitesseRotation: 200
-  hauteurSaut: 2
+  hauteurSaut: 1.5
   gravite: -9.81
   forceSpeciale: 5
   decelerationSpeciale: 15
