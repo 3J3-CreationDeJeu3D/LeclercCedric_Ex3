@@ -4870,7 +4870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4132d96528cda284fa9f6ca0da0f78c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GestionUIOxygene
-  sante: {fileID: 1905609902}
+  sante: {fileID: 121098114}
   slider1: {fileID: 788870162}
   slider2: {fileID: 108228839}
 --- !u!1 &895708665
@@ -9455,6 +9455,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DudeMan
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8b951b0ff727e6041ae96d883a1e3013, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 8b951b0ff727e6041ae96d883a1e3013, type: 3}
       propertyPath: m_Controller
       value: 
@@ -11122,6 +11126,10 @@ PrefabInstance:
     - target: {fileID: 5991391873743486956, guid: 9b8eb3977e316df4a844588b024c4e67, type: 3}
       propertyPath: m_Name
       value: Oxygene
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351320889992280552, guid: 9b8eb3977e316df4a844588b024c4e67, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

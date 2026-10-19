@@ -28,21 +28,39 @@ public class SanteJoueur : MonoBehaviour
 
     void Update()
     {
-
+        // niveauOxygene -= Time.deltaTime * perteOxygene;
+        RecevoirDegats(Time.deltaTime * perteOxygene);
     }
-    public void RecevoirDegats(int degats)
-    {
 
+    public void RecevoirDegats(float degats)
+    {
+        niveauOxygene -= degats;
+        niveauOxygene = Mathf.Clamp(niveauOxygene, 0, niveauOxygeneMax);
+
+        if (niveauOxygene <= 0 && controles.etatPerso != EtatPerso.MORT)
+        {
+            StartCoroutine(Mourir());
+        }
     }
 
     public void Soigner(int soins)
     {
-
+        niveauOxygene += soins;
+        niveauOxygene = Mathf.Clamp(niveauOxygene, 0, niveauOxygeneMax);
     }
 
 
-    // public IEnumerator Mourir()
-    // {
+    public IEnumerator Mourir()
+    {
+        // Changer etat perso
+        controles.etatPerso = EtatPerso.MORT;
+        // Déclencher un son de fin
 
-    // }
+        // Déclencher anim mort
+        animator.SetTrigger("mort");
+
+        // Quand anim termine, redemarre jeu
+        yield return new WaitForSeconds(3);
+        controles.RedemarrerPartie();
+    }
 }
