@@ -96,11 +96,11 @@ public class ControlesJoueur : MonoBehaviour
         // Quand le personnage est libre, il peut se déplacer et sauter. 
         // Si le personnage est dans un autre état, il ne peut pas se déplacer ni sauter, 
         // mais peut effectuer d'autres actions comme attaquer ou interagir.
-        if(etatPerso == EtatPerso.LIBRE || etatPerso == EtatPerso.SAUT)
+        if (etatPerso == EtatPerso.LIBRE || etatPerso == EtatPerso.SAUT)
         {
             deplacementGeneral = deplacementJoueur.CalculerDeplacement(deplacementInput);
 
-            if(sautInput == true)
+            if (sautInput == true)
             {
                 deplacementJoueur.Sauter();
             }
@@ -110,8 +110,14 @@ public class ControlesJoueur : MonoBehaviour
                 deplacementJoueur.Dash();
             }
 
-        }
+            if (interactionInput)
+            {
+                etatPerso = EtatPerso.INTERACTION;
+                interactionJoueur.DetecterInterrupteur();
+                animator.SetTrigger("bouton");
+            }
 
+        }
 
         //Placer ici les autres actions autorisées en état LIBRE, comme l'attaque et l'interaction.
 
@@ -164,14 +170,14 @@ public class ControlesJoueur : MonoBehaviour
         {
             santeJoueur.RecevoirDegats(5);
             Vector3 direction = transform.position - hit.transform.position;
-            deplacementJoueur.AjouterForce(direction,5);
-        }    
+            deplacementJoueur.AjouterForce(direction, 5);
+        }
 
         if (hit.gameObject.tag == "oxygene")
         {
             santeJoueur.Soigner(20);
             Destroy(hit.gameObject);
-        }     
+        }
     }
 
     public void RedemarrerPartie()

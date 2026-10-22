@@ -24,7 +24,10 @@ public class InteractionJoueur : MonoBehaviour
     {
         // Dessiner un rayon pour visualiser la distance d'interaction dans l'éditeur
         Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position + Vector3.up, transform.forward * distanceInteraction);
+        Gizmos.DrawRay(
+            transform.position + Vector3.up,
+             transform.forward * distanceInteraction
+            );
     }
 
     void OnTriggerEnter(Collider other)
@@ -33,7 +36,29 @@ public class InteractionJoueur : MonoBehaviour
     }
     public void DetecterInterrupteur()
     {
+        Vector3 origine = transform.position +
+        Vector3.up;
+        Vector3 direction = transform.forward;
 
+        if (
+            Physics.Raycast(origine,
+            direction,
+            out RaycastHit collision,
+            distanceInteraction,
+            couchesInteractives,
+            QueryTriggerInteraction.Collide)
+        )
+        {
+            Interrupteur scriptInterrupteur =
+            collision.collider.
+            GetComponent<Interrupteur>();
+
+            if (scriptInterrupteur != null)
+            {
+                scriptInterrupteur.Activer();
+            }
+        }
+        controles.Invoke("RetourEtatLibre", 3f);
     }
 
 
